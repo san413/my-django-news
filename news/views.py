@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from .models import News
+from .models import Article
 
 def home(request):
-    news_list = News.objects.all().order_by('-created_at')
-    return render(request, 'news/home.html', {'news_list': news_list})
+    articles = Article.objects.all().order_by('-created_at')
+    return render(request, 'news/home.html', {'articles': articles})
