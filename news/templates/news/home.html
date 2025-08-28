@@ -1,22 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>News Portal</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📰 Latest News</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        }
+        .news-card {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+        }
+        .news-card:last-child {
+            border-bottom: none;
+        }
+        .news-title {
+            font-size: 20px;
+            color: #2c3e50;
+            margin: 0 0 5px 0;
+        }
+        .news-content {
+            font-size: 16px;
+            color: #555;
+        }
+        .no-news {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+            padding: 30px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>Latest News</h1>
+    <header>
+        <h1>📰 Latest News</h1>
+        <p>Stay updated with the most recent stories</p>
+    </header>
 
-    {% for news in news_list %}
-        <div style="border:1px solid #ddd; margin:10px; padding:10px;">
-            <h2>{{ news.title }}</h2>
-            <p>{{ news.content }}</p>
-            {% if news.image %}
-                <img src="{{ news.image.url }}" width="300">
-            {% endif %}
-            <p><small>Posted on {{ news.created_at }}</small></p>
-        </div>
-    {% empty %}
-        <p>No news available yet.</p>
-    {% endfor %}
+    <div class="container">
+        {% if news_list %}
+            {% for news in news_list %}
+                <div class="news-card">
+                    <h2 class="news-title">{{ news.title }}</h2>
+                    <p class="news-content">{{ news.content|truncatewords:30 }}</p>
+                    <small>Published on: {{ news.created_at|date:"F j, Y, g:i a" }}</small>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-news">
+                🚨 No news available yet. Please check back later!
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
