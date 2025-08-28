@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>News Portal</title>
+</head>
+<body>
+    <h1>Latest News</h1>
+
+    {% for news in news_list %}
+        <div style="border:1px solid #ddd; margin:10px; padding:10px;">
+            <h2>{{ news.title }}</h2>
+            <p>{{ news.content }}</p>
+            {% if news.image %}
+                <img src="{{ news.image.url }}" width="300">
+            {% endif %}
+            <p><small>Posted on {{ news.created_at }}</small></p>
+        </div>
+    {% empty %}
+        <p>No news available yet.</p>
+    {% endfor %}
+</body>
+</html>
